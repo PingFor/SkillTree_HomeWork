@@ -9,10 +9,14 @@ namespace HomeWork_1.Controllers
 {
     public class HomeController : Controller
     {
+        DbEntities db = new DbEntities();
         public List<Accounting> AccountingList { get; set; }
+
         public ActionResult Index()
         {
-            AccountingList = GetAccountings();
+            List<AccountBook> AccountBookList = db.AccountBook.ToList();
+            AccountingList = AccountBookList.OrderBy(d=> d.Categoryyy).Select(d => new Accounting() { Type = d.Categoryyy, Amount = d.Amounttt, Date = d.Dateee }).ToList();
+            //AccountingList = GetAccountings();
             return View(AccountingList);
         }
 
