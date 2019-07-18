@@ -8,9 +8,9 @@ namespace HomeWork_1.Service
     public class AccountBookService
     {
         private readonly IRepository<AccountBook> _accountBookRepository;
-        public AccountBookService()
+        public AccountBookService(IUnitOfWork UnitOfWork)
         {
-            _accountBookRepository = new Repository<AccountBook>();
+            _accountBookRepository = new Repository<AccountBook>(UnitOfWork);
         }
 
         public IEnumerable<Accounting> Lookup()

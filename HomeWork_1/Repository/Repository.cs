@@ -10,34 +10,36 @@ namespace HomeWork_1.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
+        public IUnitOfWork UnitOfWork { get; set; }
         private DbSet<T> _dbSet;
-        public Repository()
+        private DbSet<T> objSet => _dbSet ?? (UnitOfWork.Context.Set<T>());
+        public Repository(IUnitOfWork unitOfWork)
         {
-            _dbSet = new DbEntities().Set<T>();
+            UnitOfWork = unitOfWork;
         }
         public void Create(T entity)
         {
-            _dbSet.Add(entity);
+            objSet.Add(entity);
         }
 
         public T GetSingle(Expression<Func<T, bool>> filter)
         {
-            return _dbSet.SingleOrDefault(filter);
+            return objSet.SingleOrDefault(filter);
         }
 
         public IQueryable<T> LookupAll()
         {
-            return _dbSet;
+            return objSet;
         }
 
         public IQueryable<T> Query(Expression<Func<T, bool>> filter)
         {
-            return _dbSet.Where(filter);
+            return objSet.Where(filter);
         }
 
         public void Remomve(T entity)
         {
-            _dbSet.Remove(entity);
+            objSet.Remove(entity);
         }
     }
 }

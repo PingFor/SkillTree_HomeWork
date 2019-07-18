@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HomeWork_1.Models;
+using HomeWork_1.Repository;
 using HomeWork_1.Service;
 
 namespace HomeWork_1.Controllers
@@ -11,9 +12,12 @@ namespace HomeWork_1.Controllers
     public class HomeController : Controller
     {
         private readonly AccountBookService _accountBookService;
+        private readonly UnitOfWork _unitOfWork;
 
-        public HomeController() {
-            _accountBookService = new AccountBookService();
+        public HomeController()
+        {
+            _unitOfWork = new UnitOfWork();
+            _accountBookService = new AccountBookService(_unitOfWork);
         }
 
         public ActionResult Index()
