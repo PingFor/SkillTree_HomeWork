@@ -4,20 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HomeWork_1.Models;
+using HomeWork_1.Service;
 
 namespace HomeWork_1.Controllers
 {
     public class HomeController : Controller
     {
-        DbEntities db = new DbEntities();
-        public List<Accounting> AccountingList { get; set; }
+        private readonly AccountBookService _accountBookService;
+
+        public HomeController() {
+            _accountBookService = new AccountBookService();
+        }
 
         public ActionResult Index()
         {
-            List<AccountBook> AccountBookList = db.AccountBook.ToList();
-            AccountingList = AccountBookList.OrderBy(d=> d.Categoryyy).Select(d => new Accounting() { Type = d.Categoryyy, Amount = d.Amounttt, Date = d.Dateee }).ToList();
-            //AccountingList = GetAccountings();
-            return View(AccountingList);
+            IEnumerable<Accounting> accountingBookList = _accountBookService.Lookup();            
+            return View(accountingBookList);
         }
 
         public ActionResult About()

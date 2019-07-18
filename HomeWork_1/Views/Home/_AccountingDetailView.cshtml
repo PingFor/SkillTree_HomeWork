@@ -1,4 +1,5 @@
 ﻿@model List<HomeWork_1.Models.Accounting>
+@{var index = 1;}
 <div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
@@ -9,12 +10,12 @@
                 <th>金額</th>
             </tr>
 
-            @{for (int i = 0; i < Model.Count; i++)
+            @{foreach (var m in Model)
                 {
                     <tr>
-                        <td>@(i+1)</td>
+                        <td>@(index++)</td>
                         <td>
-                            @if (Model[i].Type == 1)
+                            @if (m.Type == 1)
                             {
                                 @:收入
                             }
@@ -23,8 +24,8 @@
                                 @:支出
                             }
                         </td>
-                        <td>@Model[i].Date.ToString("yyyy-MM-dd")</td>
-                        <td>@Model[i].Amount.ToString("###,###")</td>
+                        <td>@m.Date.ToString("yyyy-MM-dd")</td>
+                        <td>@m.Amount.ToString("###,###")</td>
                     </tr>
                 }
             }
