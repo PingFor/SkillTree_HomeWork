@@ -22,7 +22,8 @@ namespace HomeWork_1.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<Accounting> accountingBookList = _accountBookService.Lookup();            
+            IEnumerable<Accounting> accountingBookList = _accountBookService.Lookup();
+            GetTypeDropdownListModel();
             return View(accountingBookList);
         }
 
@@ -40,7 +41,8 @@ namespace HomeWork_1.Controllers
             return View();
         }
 
-        public List<Accounting> GetAccountings() {
+        public List<Accounting> GetAccountings()
+        {
             List<Accounting> AccList = new List<Accounting>();
             DateTime Now = DateTime.Now;
             Now = Now.AddYears(-2);
@@ -49,18 +51,39 @@ namespace HomeWork_1.Controllers
             for (int i = 0; i < 100; i++)
             {
                 Accounting = new Accounting();
-                int Type = Random.Next(0,3);
+                int Type = Random.Next(0, 3);
                 Accounting.Type = Type;
                 int AmountMax = 200000;
                 int AmountMin = 20;
-                int Amount = Random.Next(AmountMin++, AmountMax);                             
-                Accounting.Amount = Amount;                
-                int DayRandom = Random.Next(1,10);
+                int Amount = Random.Next(AmountMin++, AmountMax);
+                Accounting.Amount = Amount;
+                int DayRandom = Random.Next(1, 10);
                 DateTime AccountingDate = AccList.Count == 0 ? Now.AddDays(DayRandom) : AccList[i - 1].Date.AddDays(DayRandom);
                 Accounting.Date = AccountingDate;
                 AccList.Add(Accounting);
             }
             return AccList;
+        }
+
+        private void GetTypeDropdownListModel()
+        {
+            var items = new List<SelectListItem>();
+            items.Add(new SelectListItem()
+            {
+                Text = "請選擇"                
+            });
+            items.Add(new SelectListItem()
+            {
+                Text = "支出",
+                Value = "1"
+            });
+            items.Add(new SelectListItem()
+            {
+                Text = "收入",
+                Value = "2"
+            });
+
+            ViewData["dr"] = items;
         }
     }
 }
