@@ -7,7 +7,7 @@
     <title>我的記帳本</title>
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/site.css")    
-    @Scripts.Render("~/Scripts/modernizr-*")
+    @Scripts.Render("~/Scripts/modernizr-2.8.3.js")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,8 +36,7 @@
             <p>&copy; 2017 - <a href="#">SkillTree</a></p>
         </footer>
     </div>
-    @Scripts.Render("~/Scripts/jquery-{version}.js")
-    @Scripts.Render("~/Scripts/jquery.validate*")    
+    @Scripts.Render("~/Scripts/jquery-3.3.1.js")
     @Scripts.Render("~/Scripts/bootstrap.js")
     @RenderSection("scripts", required: false)
 </body>

@@ -22,9 +22,8 @@ namespace HomeWork_1.Controllers
 
         public ActionResult Index()
         {
-            IEnumerable<Accounting> accountingBookList = _accountBookService.Lookup();
             GetTypeDropdownListModel();
-            return View(accountingBookList);
+            return View();
         }
         [ChildActionOnly]
         public ActionResult AccountingDetailView()
@@ -76,7 +75,8 @@ namespace HomeWork_1.Controllers
             var items = new List<SelectListItem>();
             items.Add(new SelectListItem()
             {
-                Text = "請選擇"
+                Text = "請選擇",
+                 Value = "0"
             });
             items.Add(new SelectListItem()
             {
@@ -90,6 +90,12 @@ namespace HomeWork_1.Controllers
             });
 
             ViewData["dr"] = items;
+        }
+     
+        public ActionResult DateValid(DateTime date)
+        {
+            bool isValidate = DateTime.Now > date; 
+            return Json(isValidate, JsonRequestBehavior.AllowGet);
         }
     }
 }
