@@ -26,6 +26,12 @@ namespace HomeWork_1.Controllers
             GetTypeDropdownListModel();
             return View(accountingBookList);
         }
+        [ChildActionOnly]
+        public ActionResult AccountingDetailView()
+        {
+            IEnumerable<Accounting> accountingBookList = _accountBookService.Lookup();
+            return View(accountingBookList);
+        }
 
         public ActionResult About()
         {
@@ -70,7 +76,7 @@ namespace HomeWork_1.Controllers
             var items = new List<SelectListItem>();
             items.Add(new SelectListItem()
             {
-                Text = "請選擇"                
+                Text = "請選擇"
             });
             items.Add(new SelectListItem()
             {
