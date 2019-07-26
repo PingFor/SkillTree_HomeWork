@@ -12,8 +12,9 @@ namespace HomeWork_1.Models
         public string Id { get; set; }
         [Range(1, 2, ErrorMessage = "請選擇類別")]        
         public int Type { get; set; } //1.expenditure //2.income
+        
+        [RegularExpression(@"^[1-9]([1-9]+)?$", ErrorMessage = "請輸入整數")]
         [Range(1, int.MaxValue)]
-        [Required(AllowEmptyStrings = false)]
         public int Amount { get; set; }
         [Required(AllowEmptyStrings = false)]       
         [Remote("DateValid", "Home", AreaReference.UseRoot, ErrorMessage = "日期不能大於今日")]

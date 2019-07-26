@@ -2,6 +2,7 @@
 using HomeWork_1.Models;
 using HomeWork_1.Repository;
 using System.Linq;
+using System;
 
 namespace HomeWork_1.Service
 {
@@ -23,6 +24,19 @@ namespace HomeWork_1.Service
                 Amount = d.Amounttt
             }).ToList();
             return result;
-        }       
+        }
+
+        public void Create(Accounting accounting)
+        {
+            AccountBook accountBook = new AccountBook()
+            {
+                Id = Guid.NewGuid(),
+                Amounttt = accounting.Amount,
+                Categoryyy = accounting.Type,
+                Dateee = accounting.Date,
+                Remarkkk = accounting.Remark
+            };
+            _accountBookRepository.Create(accountBook);
+        }
     }
 }

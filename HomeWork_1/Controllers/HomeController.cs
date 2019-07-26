@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using HomeWork_1.Models;
 using HomeWork_1.Repository;
@@ -25,9 +23,9 @@ namespace HomeWork_1.Controllers
             GetTypeDropdownListModel();
             return View();
         }
-        [ChildActionOnly]
+        //[ChildActionOnly]
         public ActionResult AccountingDetailView()
-        {
+        {        
             IEnumerable<Accounting> accountingBookList = _accountBookService.Lookup();
             return View(accountingBookList);
         }
@@ -45,6 +43,25 @@ namespace HomeWork_1.Controllers
 
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Accounting accounting) {
+            if (Request.IsAjaxRequest())
+            {
+                if (ModelState.IsValid)
+                {
+                    _accountBookService.Create(accounting);
+                    _unitOfWork.Commit();
+                    return Content("Success");
+                }
+                return Content("Fail");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
 
         public List<Accounting> GetAccountings()
         {
@@ -69,6 +86,8 @@ namespace HomeWork_1.Controllers
             }
             return AccList;
         }
+
+
 
         private void GetTypeDropdownListModel()
         {
